@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>今月の勤務表</title>
+    <link href="../CSS/main.css" rel="stylesheet">
+    <link href="../CSS/jquery.dataTables.css" rel="stylesheet">
+    <link href="../CSS/dataTables/datatables.css" rel="stylesheet">
+    <link href="../CSS/buttons.dataTables.css" rel="stylesheet">
+    <link href="../CSS/bootstrap.css" rel="stylesheet">
+
+</head>
+<body>
+
+    <div class="opennav"></div>
+    <div id="mySidenav" class="sidenav">
+        <a href="#calendar" class="calendar"></a>
+        <a href="#setting" class="setting"></a>
+    </div>
+    <div id="calendar" class="myTab active" name="myTab">
+        <h1 class="title">今月勤務表</h1>
+        <table id="thisMonhtData" class="table table-datalist">
+            <thead>
+            <tr>
+                <th><span class="ico-sorting">開始日</span></th>
+                <th><span class="ico-sorting">開始時間</span></th>
+                <th><span class="ico-sorting">開始分</span></th>
+                <th><span class="ico-sorting">終了時間</span></th>
+                <th><span class="ico-sorting">終了分</span></th>
+                <th><span class="ico-sorting">出休区分</span></th>
+                <th><span class="ico-sorting">稼働時間</span></th>
+                <th><span class="ico-sorting">研修時間</span></th>
+                <th><span class="ico-sorting">備考</span></th>
+            </tr>
+            </thead>
+        </table>
+    </div>
+    <div id="setting" class="myTab active" name="myTab">
+    <h1 class="title">朝夜メール作成・設定</h1>
+    <div>
+        <table id="settingTable" class="table table-datalist">
+            <thead>
+            <tr>
+                <th></th>
+                <th><span class="ico-sorting">分類</span></th>
+                <th><span class="ico-sorting">メールアドレス</span></th>
+                <th><span class="ico-sorting">朝・夜</span></th>
+                <th><span class="ico-sorting">指定期限</span></th>
+            </tr>
+            <tr name="addrInfo" class="addrInfo" style="display: none">
+                <td>
+                    <div class="text-center">
+                        <button type="button" class="btn btn-outline-danger delete" name="delete">×削除</button>
+                    </div>
+                </td>
+                <td>
+                    <select class="form-control" name="Classification">
+                        <option value="" disabled selected>分類</option>
+                        <option value="to">宛先</option>
+                        <option value="cc">CC</option>
+                    </select>
+                </td>
+                <td>
+                    <input class="form-control" name="mailAddr" type="email" placeholder="Mail addr">
+                </td>
+                <td>
+                    <div class="d-flex flex-row justify-content-center">
+                        <div class="checkbox p-2 bd-highlight">
+                                <label>
+                                    <input type="checkbox" name="timeMorning" value="morning">
+                                    朝
+                                </label>
+                            </div>
+                        <div class="checkbox p-2 bd-highlight">
+                              <label>
+                                   <input type="checkbox" name="timeEvening" value="evening" >
+                                    夜
+                             </label>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="input-group input-daterange">
+                        <input type="date" class="form-control" name="dateStart">
+                        <div class="input-group-addon">to</div>
+                        <input type="date" class="form-control" name="dateEnd">
+                    </div>
+                </td>
+            </tr>
+            </thead>
+        </table>
+        <button type="button" class="btn btn-outline-warning float-right mx-2" id="btnAdd">追加</button>
+        <button type="button" class="btn btn-outline-warning float-right mx-2" id="btnSave">登録</button>
+    </div>
+    </div>
+    </body>
+<script src="../JS/jquery-3.3.1.min.js"></script>
+<script src="../JS/bootstrap.min.js"></script>
+<script src="../JS/dataTables/datatables.js"></script>
+<script src="../JS/dataTables.buttons.js"></script>
+<script src="../JS/buttons.html5.js"></script>
+<script src="../JS/Main.js"></script>
+<script src="../JS/dataTables.editor.js"></script>
+<!--<script src="../JS/editor.dataTables.js"></script>-->
+</html>

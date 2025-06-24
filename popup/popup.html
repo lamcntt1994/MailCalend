@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>朝・夜メール拡張</title>
+    <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+<div class="container">
+    <h1 class="title">朝・夜メール拡張メニュー</h1>
+    <ul class="menu-list">
+        <li>
+            <a href="https://outlook.office.com/calendar/view/day" id="sendMailCalendar">
+                朝・夜メール作成
+            </a>
+        </li>
+        <li>
+            <a href="#" id="toThisMonthData">
+                設定・勤務表参考
+            </a>
+        </li>
+        <li class="checkbox-item">
+            <label for="KOT_check">KOT連携</label>
+            <input type="checkbox" id="KOT_check">
+        </li>
+    </ul>
+</div>
+
+<script src="../JS/jquery-3.3.1.min.js"></script>
+<script src="popup.js"></script>
+</body>
+</html>

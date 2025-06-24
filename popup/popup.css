@@ -1,0 +1,55 @@
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+    font-size: 15px;
+}
+
+.container {
+    width: 250px;
+    padding: 20px;
+}
+
+.title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: #2c3e50;
+}
+
+.menu-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.menu-list li {
+    margin-bottom: 12px;
+}
+
+.menu-list a {
+    display: block;
+    padding: 10px 12px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    text-decoration: none;
+    color: #2c3e50;
+    transition: background-color 0.2s, border-color 0.2s;
+}
+
+.menu-list a:hover {
+    background-color: #f0f8ff;
+    border-color: #3399ff;
+}
+
+.checkbox-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+}

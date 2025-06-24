@@ -1,0 +1,28 @@
+{
+    "manifest_version": 3,
+    "name": "Outlook予定表作成v1",
+    "description": "Outlook予定表作成",
+    "version": "0.0.1",
+    "icons": {
+        "16": "logo/logo1-16.png",
+        "48": "logo/logo1-48.png",
+        "128": "logo/logo1-128.png"
+    },
+    "options_page": "settings/settings.html",
+    "action": {
+        "default_title": "予定表作成",
+        "default_popup": "popup/popup.html"
+    },
+    "permissions": ["tabs", "activeTab", "storage", "downloads", "scripting", "identity"],
+    "host_permissions": [
+        "https://scweb.saint-care.com/*",
+        "https://s4.ta.kingoftime.jp/"
+    ],
+    "background": {
+        "service_worker": "service-worker.js"
+    },
+    "content_scripts": [{
+        "js": ["foreground.js", "JS/alertCustome.js"],
+        "matches": ["https://outlook.office365.com/calendar/view/day", "https://outlook.office.com/calendar/view/day"]
+    }]
+}
