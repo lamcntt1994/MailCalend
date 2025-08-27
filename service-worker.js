@@ -49,20 +49,22 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     }
     if (message.type === "openAndReadLocalStorageKingOfTime") {
         chrome.tabs.create({ url: "https://s4.ta.kingoftime.jp/independent/recorder2/personal/#", active: false }, (tab) => {
-            // Đợi tab mới load xong rồi chèn content script
+            // Tab　ロードした後シートを追加する
             chrome.tabs.onUpdated.addListener(function listener(tabId, info) {
                 if (tabId === tab.id && info.status === "complete") {
                     chrome.tabs.onUpdated.removeListener(listener);
 
-                    // Inject content script
+                    // シートの内容を追加する
                     chrome.scripting.executeScript({
                         target: { tabId: tab.id },
                         func: async (tabid, data) => {
                             config = {first:"出勤", breakIn:"休始", breakOut:"休終", last:"退勤"}
+                            //user情報get
                             function get_user_token(result){
                                 json = result["PARSONAL_BROWSER_RECORDER@SETTING"];
                                 return JSON.parse(json)["user"]["user_token"];
                             }
+                            // action id:出勤、退勤など
                             function get_acction_id(result, acction_name){
                                 json = result["PARSONAL_BROWSER_RECORDER@SETTING"];
                                 record_button = JSON.parse(json)["timerecorder"]["record_button"]
@@ -73,9 +75,11 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
                                 }
                                 return false;
                             }
+                            //日月のフォマード
                             function toTwoDigits(num) {
                                 return num.toString().padStart(2, '0');
                             }
+                            //年月日を文字にする
                             function getFullDateString(time){
                                 var date = new Date()
 
@@ -86,9 +90,8 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
                                 var minute = time.split(":")[1].trim()
                                 var second = "00";
                                 return "" + year + toTwoDigits(month) + toTwoDigits(day) + toTwoDigits(hour) + toTwoDigits(minute) + toTwoDigits(second)
-
-
                             }
+                            //現在の位置を取得する
                             function getCurrentLocation() {
                                 return new Promise((resolve, reject) => {
                                     navigator.geolocation.getCurrentPosition(
@@ -104,6 +107,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
                                     );
                                 });
                             }
+                            //get datetime fomat
                             function getDateObject(date, isUtc) {
                                 if (!date) {
                                     date = new Date()
@@ -158,25 +162,22 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
                                     const key = localStorage.key(i);
                                     result[key] = localStorage.getItem(key);
                                 }
+
+                                //発送するデータ作成
                                 localStData =[]
                                 for (const key of Object.keys(data)) {
                                     const jsonData = await creat_json_data(result, config[key], getFullDateString(data[key]));
                                     localStData.push(jsonData);
                                 }
-
+                                //発送するデータチェック↓
                                 console.log(JSON.stringify(localStData))
+                                //発送するデータをLocalstorageに登録する、（ページのリロードイする時に発送しないデータを自動に発送すること）
                                 localStorage.setItem("PARSONAL_BROWSER_RECORDER@LOCAL_RECORD_"+ get_user_token(result), JSON.stringify(localStData));
-                                // jsonData = JSON.stringify([creat_json_data(result, "出勤", "20250606090000")]);
-                                // localStorage.setItem("test", "lamtest");
-                                // while(localStorage.getItem("PARSONAL_BROWSER_RECORDER@LOCAL_RECORD_"+ get_user_token(result))){
-                                //     await sleep(500);
-                                // }
-                                // while (localStorage.getItem("PARSONAL_BROWSER_RECORDER@LOCAL_RECORD_"+ get_user_token(result))=="") {
-                                //     await sleep(1000); // mỗi 500ms kiểm tra 1 lần
-                                // }
+                                
+
                                 return true
                             }catch (e){
-                                //
+                                console.error(e.message)
                                 return false
                             }
                         },
